@@ -1,17 +1,25 @@
+<h2>Albums for: {{artistName}}</h2>
 <div>
-  {{#each artistAlbums}}
-    <div>
-      <img src="{{this.images.0.url}}" alt="album-cover" />
-      <h2>{{this.name}}</h2>
-      <p>
-        Release date:
-        {{this.release_date}}
-      </p>
-      <p>
-        Total tracks:
-        {{this.total_tracks}}
-      </p>
-      <a href="/albums/tracks/{{this.id}}">View tracks</a>
-    </div>
-  {{/each}}
+  <ul>
+    {{#each albums}}
+      <li>
+        <img
+          src="{{this.images.0.url}}"
+          alt="{{this.name}}"
+          style="width: 300px"
+        />
+        <h2>{{this.name}}</h2>
+        <p>
+          Release date:
+          {{this.release_date}}
+        </p>
+        <p>
+          Total tracks:
+          {{this.total_tracks}}
+        </p>
+        <a href="/tracks/{{this.id}}">View Tracks</a>
+      </li>
+    {{/each}}
+  </ul>
+
 </div>

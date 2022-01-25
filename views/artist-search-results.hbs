@@ -1,18 +1,25 @@
 <section>
   <div>
-    {{#each searchedArtists}}
+    {{#each artists}}
       <div>
         {{#if images.0.url}}
-          <img src="{{this.images.0.url}}" alt="{{this.name}}" />
+          <img
+            src="{{this.images.0.url}}"
+            alt="{{this.name}}"
+            style="width: 300px"
+          />
         {{else}}
-          <img src="/images/spotify-background.jpeg" alt="{{this.name}}" />
+          <img
+            src="https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WXXWTK9q5b0Iw7B0YQMsVxZaNB7DM"
+            alt="{{this.name}}"
+            style="width: 300px"
+          />
         {{/if}}
-
         <div>
           <h2>{{this.name}}</h2>
           {{#if genres}}
-          <h3>Genre:</h3>
-          <p>{{this.genres}}</p>
+            <h3>Genre:</h3>
+            <p>{{this.genres}}</p>
           {{/if}}
           <button>
             <a href="/albums{{this.id}}">View Albums</a>

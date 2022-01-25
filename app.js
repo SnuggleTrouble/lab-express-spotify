@@ -28,18 +28,17 @@ spotifyApi
 
 // Our routes go here:
 //The Home page
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
   res.render("home");
 });
 
 //Searching for Artists
-app.get("/artist-search", (req, res, next) => {
+app.get("/artist-search", (req, res) => {
   spotifyApi
-    .searchArtists(req.query.search)
+    .searchArtists(req.query.artistSearch)
     .then((data) => {
-      console.log("The received data from the API: ", data.body.artists.items[0]);
-      let searchedArtists = data.body.artists.items[0].images[0].url;
-      res.render("artist-search-results", { searchedArtists });
+      console.log("The received data from the API: ", data.body.artists.items);
+      res.render("artist-search-results", { artists: data.body.artists.items });
     })
     .catch((error) =>
       console.log("An error whilst searching for artists occurred: ", error)
@@ -47,12 +46,15 @@ app.get("/artist-search", (req, res, next) => {
 });
 
 //Searching for Albums
-app.get("/albums/:artistId", (req, res, next) => {
+app.get("/albums/:artistId", (req, res) => {
   spotifyApi
-    .getArtistAlbums(req.params.id, { limit: 10, offset: 20 })
-    .then((albums) => {
-      let artistAlbums = albums.body.items;
-      res.render("albums", { artistAlbums });
+    .getArtistAlbums(req.params.artistId)
+    .then(async (data) => {
+      const artistData = await spotifyApi.getArtist(req.params.artistId);
+      res.render("albums", {
+        albums: data.body.items,
+        artistName: artistData.body.name,
+      });
     })
     .catch((error) => {
       console.log("An error whilst retrieving the albums occurred: ", error);
@@ -60,12 +62,11 @@ app.get("/albums/:artistId", (req, res, next) => {
 });
 
 //Searching for Tracks
-app.get("/albums/tracks/:albumId", (req, res, next) => {
+app.get("/tracks/:albumId", (req, res) => {
   spotifyApi
-    .getAlbumTracks(req.params.id, { limit: 5, offset: 1 })
-    .then((tracks) => {
-      let albumTracks = tracks.body.items;
-      res.render("tracks", { albumTracks });
+    .getAlbumTracks(req.params.albumId, { limit: 5, offset: 1 })
+    .then((data) => {
+      res.render("tracks", { tracks: data.body.items });
     })
     .catch((error) => {
       console.log("An error whilst retrieving the tracks occurred: ", error);
