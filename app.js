@@ -37,7 +37,7 @@ app.get("/artist-search", (req, res, next) => {
   spotifyApi
     .searchArtists(req.query.search)
     .then((data) => {
-      console.log("The received data from the API: ", data.body);
+      console.log("The received data from the API: ", data.body.artists.items[0]);
       let searchedArtists = data.body.artists.items[0].images[0].url;
       res.render("artist-search-results", { searchedArtists });
     })

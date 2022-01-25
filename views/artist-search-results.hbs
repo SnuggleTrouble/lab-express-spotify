@@ -1,13 +1,25 @@
-<div>
-  {{#each searchedArtists}}
-    <div>
-      <article>
-        <img src="{{this.images.0.url}}" alt="{{this.name}}" />
-        <h2>{{this.name}}</h2>
-        <button>
-          <a href="/albums{{this.id}}">View albums</a>
-        </button>
-      </article>
-    </div>
-  {{/each}}
-</div>
+<section>
+  <div>
+    {{#each searchedArtists}}
+      <div>
+        {{#if images.0.url}}
+          <img src="{{this.images.0.url}}" alt="{{this.name}}" />
+        {{else}}
+          <img src="/images/spotify-background.jpeg" alt="{{this.name}}" />
+        {{/if}}
+
+        <div>
+          <h2>{{this.name}}</h2>
+          {{#if genres}}
+          <h3>Genre:</h3>
+          <p>{{this.genres}}</p>
+          {{/if}}
+          <button>
+            <a href="/albums{{this.id}}">View Albums</a>
+          </button>
+        </div>
+
+      </div>
+    {{/each}}
+  </div>
+</section>
