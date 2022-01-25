@@ -1,0 +1,17 @@
+<div>
+  {{#each artistAlbums}}
+    <div>
+      <img src="{{images.0.url}}" alt="album-cover" />
+      <h3>{{this.name}}</h3>
+      <p>
+        Release date:
+        {{this.release_date}}
+      </p>
+      <p>
+        Total tracks:
+        {{this.total_tracks}}
+      </p>
+      <a href="/albums/tracks/{{this.id}}">Tracks</a>
+    </div>
+  {{/each}}
+</div>

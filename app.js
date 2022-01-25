@@ -38,12 +38,26 @@ app.get("/artist-search", (req, res, next) => {
     .searchArtists(req.query.artist)
     .then((data) => {
       console.log("The received data from the API: ", data.body);
-      let artists = data.body.artists.items;
-      res.render("artist-search-results", { artists });
+      let searchedArtists = data.body.artists.items;
+      res.render("artist-search-results", { searchedArtists });
     })
     .catch((err) =>
       console.log("The error while searching artists occured: ", err)
     );
+});
+
+//Searching for Albums
+app.get("/albums/:artistId", (req, res, next) => {
+  spotifyApi
+    .getArtistAlbums(req.params.id)
+    .then((albums) => {
+      let artistAlbums = albums.body.items;
+      console.log(artistAlbums);
+      res.render("albums", { artistAlbums });
+    })
+    .catch((err) => {
+      console.log("There was an issue while retrieving the albums ", err);
+    });
 });
 
 app.listen(3000, () =>
