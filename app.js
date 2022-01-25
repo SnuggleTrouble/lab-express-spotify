@@ -41,22 +41,34 @@ app.get("/artist-search", (req, res, next) => {
       let searchedArtists = data.body.artists.items;
       res.render("artist-search-results", { searchedArtists });
     })
-    .catch((err) =>
-      console.log("The error while searching artists occured: ", err)
+    .catch((error) =>
+      console.log("An error whilst searching for artists occurred: ", error)
     );
 });
 
 //Searching for Albums
-app.get("/albums/:artistId", (req, res, next) => {
+app.get("/albums/:id", (req, res, next) => {
   spotifyApi
-    .getArtistAlbums(req.params.id)
+    .getArtistAlbums(req.params.id, { limit: 10, offset: 20 })
     .then((albums) => {
       let artistAlbums = albums.body.items;
-      console.log(artistAlbums);
       res.render("albums", { artistAlbums });
     })
-    .catch((err) => {
-      console.log("There was an issue while retrieving the albums ", err);
+    .catch((error) => {
+      console.log("An error whilst retrieving the albums occurred: ", error);
+    });
+});
+
+//Searching for Tracks
+app.get("/albums/tracks/:id", (req, res, next) => {
+  spotifyApi
+    .getAlbumTracks(req.params.id, { limit: 5, offset: 1 })
+    .then((tracks) => {
+      let albumTracks = tracks.body.items;
+      res.render("tracks", { albumTracks });
+    })
+    .catch((error) => {
+      console.log("An error whilst retrieving the tracks occurred: ", error);
     });
 });
 
