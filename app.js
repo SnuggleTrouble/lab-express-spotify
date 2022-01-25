@@ -47,7 +47,7 @@ app.get("/artist-search", (req, res, next) => {
 });
 
 //Searching for Albums
-app.get("/albums/:id", (req, res, next) => {
+app.get("/albums/:artistId", (req, res, next) => {
   spotifyApi
     .getArtistAlbums(req.params.id, { limit: 10, offset: 20 })
     .then((albums) => {
@@ -60,7 +60,7 @@ app.get("/albums/:id", (req, res, next) => {
 });
 
 //Searching for Tracks
-app.get("/albums/tracks/:id", (req, res, next) => {
+app.get("/albums/tracks/:albumId", (req, res, next) => {
   spotifyApi
     .getAlbumTracks(req.params.id, { limit: 5, offset: 1 })
     .then((tracks) => {
