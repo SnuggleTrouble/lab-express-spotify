@@ -1,17 +1,17 @@
 <div>
   {{#each artistAlbums}}
     <div>
-      <img src="{{images.0.url}}" alt="album-cover" />
-      <h2>{{name}}</h2>
+      <img src="{{this.images.0.url}}" alt="album-cover" />
+      <h2>{{this.name}}</h2>
       <p>
         Release date:
-        {{release_date}}
+        {{this.release_date}}
       </p>
       <p>
         Total tracks:
-        {{total_tracks}}
+        {{this.total_tracks}}
       </p>
-      <a href="/albums/tracks/{{id}}">View tracks</a>
+      <a href="/albums/tracks/{{this.id}}">View tracks</a>
     </div>
   {{/each}}
 </div>

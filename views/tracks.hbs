@@ -2,8 +2,8 @@
   <ul>
     {{#each albumTracks}}
       <div>
-        <h2>{{name}}</h2>
-        <audio src="{{preview_url}}"></audio>
+        <h2>{{this.name}}</h2>
+        <audio src="{{this.preview_url}}"></audio>
       </div>
     {{/each}}
   </ul>

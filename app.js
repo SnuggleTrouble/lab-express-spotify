@@ -35,10 +35,10 @@ app.get("/", (req, res, next) => {
 //Searching for Artists
 app.get("/artist-search", (req, res, next) => {
   spotifyApi
-    .searchArtists(req.query.artist)
+    .searchArtists(req.query.search)
     .then((data) => {
       console.log("The received data from the API: ", data.body);
-      let searchedArtists = data.body.artists.items;
+      let searchedArtists = data.body.artists.items[0].images[0].url;
       res.render("artist-search-results", { searchedArtists });
     })
     .catch((error) =>
